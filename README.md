@@ -4,4 +4,5 @@ It can be used to query event-based data, pivot into storylines, create aggregat
 
 This repo should give examples to create aggregated queries and dashboards.
 
-Feel free to commit to the repo :) 
+Feel free to commit to the repo 
+- the more data - the better :) 
