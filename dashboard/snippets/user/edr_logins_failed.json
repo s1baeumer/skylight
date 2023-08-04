@@ -1,0 +1,35 @@
+{
+  "graphs" : [
+  {
+      "graphStyle": "line",
+      "lineSmoothing": "straightLines",
+      "title": "Failed logins by OS",
+      "plots": [
+        {
+          "filter": "event.category = 'logins' event.login.loginIsSuccessful = false endpoint.os='windows'  dataSource.category = 'security' dataSource.name = 'SentinelOne'",
+          "color": "#e10009",
+          "label": "Windows",
+          "facet": "rate"
+        },
+        {
+          "filter": "event.category = 'logins' event.login.loginIsSuccessful = false endpoint.os='macos'  dataSource.category = 'security' dataSource.name = 'SentinelOne'",
+          "color": "#00bdd6",
+          "label": "MacOS",
+          "facet": "rate"
+        },
+        {
+          "filter": "event.category = 'logins' event.login.loginIsSuccessful = false endpoint.os='linux'  dataSource.category = 'security' dataSource.name = 'SentinelOne'",
+          "color": "#89c34a",
+          "label": "Linux",
+          "facet": "rate"
+        }
+      ]
+  },
+  {
+    "graphStyle": "",
+    "showBarsColumn": "false",
+    "query": "event.category = 'logins'\n| group NumberOfFailedAttempts = count(event.login.loginIsSuccessful=false)\nby event.login.userName, endpoint.name\n| sort -NumberOfFailedAttempts\n| limit 100\n",
+    "title": "Most failed logins by username and endpoint (TOP100)"
+  }
+  ]
+}

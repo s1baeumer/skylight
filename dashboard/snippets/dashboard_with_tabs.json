@@ -1,0 +1,24 @@
+{
+  "duration": "24",
+  "configType": "TABBED",
+  "tabs": [
+  {
+    "tabName": "Tab 1",
+    "options": {
+      "layout": {
+        "columns": 3
+      }
+    },
+    "parameters": [],
+    "graphs":[]
+  },
+  {
+    "tabName":"Tab 2",
+    "graphs":[]
+  }
+  {
+    "tabName":"Tab 3",
+    "graphs":[]
+  }
+  ]
+}

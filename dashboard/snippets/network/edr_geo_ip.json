@@ -1,0 +1,16 @@
+{
+    "graphs" : [
+        {
+            "graphStyle": "donut",
+            "maxPieSlices": 35,
+            "query": "event.type = \"IP Connect\" AND event.network.direction = \"OUTGOING\" AND !net_private(dst.ip.address) AND dataSource.category = 'security'\n| columns event.time, event.id, src.process.storyline.id, dst.ip.address, geo_ip_country(dst.ip.address)\n| group count(geo_ip_country(dst.ip.address)) by geo_ip_country(dst.ip.address)",
+            "title": "Outbound connections by country"
+        },
+        {
+            "graphStyle": "donut",
+            "maxPieSlices": 35,
+            "query": "event.type = \"IP Connect\" AND event.network.direction = \"INCOMING\" AND !net_private(src.ip.address) AND dataSource.category = 'security'\n| columns event.time, event.id, src.process.storyline.id, src.ip.address, geo_ip_country(src.ip.address)\n| group count(geo_ip_country(src.ip.address)) by geo_ip_country(src.ip.address)",
+            "title": "Inbound connections by country"
+        }
+    ]
+}

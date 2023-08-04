@@ -1,0 +1,47 @@
+{
+  "graphs" : [
+    {
+      "graphStyle": "line",
+      "lineSmoothing": "straightLines",
+      "title": "Successful logins by OS",
+      "plots": [
+        {
+          "filter": "event.category = 'logins' event.login.loginIsSuccessful = true endpoint.os='windows'  dataSource.category = 'security' dataSource.name = 'SentinelOne'",
+          "color": "#e10009",
+          "label": "Windows",
+          "facet": "rate"
+        },
+        {
+          "filter": "event.category = 'logins' event.login.loginIsSuccessful = true endpoint.os='macos'  dataSource.category = 'security' dataSource.name = 'SentinelOne'",
+          "color": "#00bdd6",
+          "label": "MacOS",
+          "facet": "rate"
+        },
+        {
+          "filter": "event.category = 'logins' event.login.loginIsSuccessful = true endpoint.os='linux'  dataSource.category = 'security' dataSource.name = 'SentinelOne'",
+          "color": "#89c34a",
+          "label": "Linux",
+          "facet": "rate"
+        }
+      ]
+  },
+  {
+    "graphStyle": "",
+    "showBarsColumn": "false",
+    "query": "dataSource.name = 'SentinelOne' event.category = 'logins' event.login.loginIsSuccessful=true endpoint.os='windows' dataSource.category = 'security' | limit 100 | columns simpledateformat(timestamp), event.login.userName, endpoint.name",
+    "title": "Last 100 successful logins - Windows"
+  },
+  {
+    "graphStyle": "",
+    "showBarsColumn": "false",
+    "query": "endpoint.os = 'windows' event.category = 'logins' event.login.loginIsSuccessful = true event.login.isAdministratorEquivalent=true\n| columns event.time, Host=endpoint.name, User=event.login.userName,Domain=event.login.accountDomain, IsAdmin=event.login.isAdministratorEquivalent, AccountSID=event.login.accountSid, event.login.type \n| limit 100\n| sort -event.time",
+    "title": "Last 100 successful admin logins on Windows"
+  },
+  {
+    "graphStyle": "",
+    "showBarsColumn": "false",
+    "query": "event.category = 'logins'\n| group NumberOfSuccessfulAttempts = count(event.login.loginIsSuccessful=true)\nby event.login.userName, endpoint.name\n| sort -NumberOfSuccessfulAttempts\n| limit 100\n",
+    "title": "Most successful logins by username and endpoint (TOP100)"
+  }
+  ]
+}

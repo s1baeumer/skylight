@@ -1,0 +1,29 @@
+{
+    "graphs" : [
+        {
+            "graphStyle": "donut",
+            "maxPieSlices": 10,
+            "query": "endpoint.os = * \n| group count = count() by agent.version\n| limit 10",
+            "title": "Top 10 Agent Version"
+        },
+        {
+            "graphStyle": "donut",
+            "maxPieSlices": 10,
+            "query": "endpoint.os = windows \n| group count = count() by agent.version\n| limit 10",
+            "title": "Top 10 Windows Agent Version"
+        },
+        {
+            "graphStyle": "donut",
+            "maxPieSlices": 10,
+            "query": "endpoint.os = macos \n| group count = count() by agent.version\n| limit 10",
+            "title": "Top 10 MacOS Agent Version"
+        },
+        {
+            "graphStyle": "donut",
+            "maxPieSlices": 10,
+            "query": "endpoint.os = linux \n| group count = count() by agent.version\n| limit 10",
+            "title": "Top 10 Linux Agent Version"
+        }
+      
+    ]
+}
