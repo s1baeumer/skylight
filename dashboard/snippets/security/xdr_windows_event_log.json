@@ -1,0 +1,23 @@
+{
+    "graphs" : [
+    {
+        "graphStyle": "",
+        "showBarsColumn": "false",
+        "query": "dataSource.vendor='ActiveDirectory' EventID = 1102 Channel= 'Security'\n| columns timestamp, Computer, EventID\n| sort -timestamp \n| limit 10",
+        "title": "Last 10 events where the audit log was cleared"
+    },
+    {
+        "graphStyle": "",
+        "showBarsColumn": "false",
+        "query": "dataSource.vendor='ActiveDirectory' EventID = 4624 Channel= 'Security'\n| columns timestamp, Computer, EventID\n| sort -timestamp \n| limit 10",
+        "title": "Last 10 successful logins"
+    },
+    {
+        "graphStyle": "",
+        "showBarsColumn": "false",
+        "query": " dataSource.vendor='ActiveDirectory' EventID = 4624 Channel= 'Security'\n| columns timestamp, Computer, EventID\n| group Logins=count(EventID) by Computer\n| sort -Logins ",
+        "title": "Top Logins by Endpoint"
+    }
+    ]
+}
+

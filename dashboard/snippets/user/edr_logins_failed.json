@@ -28,7 +28,7 @@
   {
     "graphStyle": "",
     "showBarsColumn": "false",
-    "query": "event.category = 'logins'\n| group NumberOfFailedAttempts = count(event.login.loginIsSuccessful=false)\nby event.login.userName, endpoint.name\n| sort -NumberOfFailedAttempts\n| limit 100\n",
+    "query": "event.category = 'logins'\n| group NumberOfFailedAttempts = count(event.login.loginIsSuccessful=false) by event.login.userName, endpoint.name\n| sort -NumberOfFailedAttempts\n| limit 100",
     "title": "Most failed logins by username and endpoint (TOP100)"
   }
   ]
