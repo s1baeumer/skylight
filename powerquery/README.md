@@ -11,4 +11,4 @@ Within the repo the queries are divided into different categories.
 ## EDR data based on natively ingested Windows Event Logs 
 - edr_user.pq
   - A member was added to a security-enabled local group
-  - A user account was created
+  - potential bruteforce 
