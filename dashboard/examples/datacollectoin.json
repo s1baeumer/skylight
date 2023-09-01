@@ -123,7 +123,24 @@
     		},
             {
                 "tabName":"File",
-                "graphs":[]
+                "graphs":[
+                    {
+                        "graphStyle": "",
+                        "query": "| join \n(rsoTaskId > '0' DirectoryName != null \n| columns serverHost, DirectoryName, FullName, Name, rsoTaskId\n),\n(rsoTaskId > '0' DirectoryName != null \n| columns rsoTaskId, serverHost\n| group rsoTaskId=newest(rsoTaskId) by serverHost\n)\non rsoTaskId, serverHost\n| columns serverHost, DirectoryName, FullName, Name, rsoTaskId\n| group NumberOfOccurences=count(serverHost) by serverHost, Name ",
+                        "showBarsColumn": "false",
+                        "title": "Occurences by Endpoints"
+                        }
+                        ],
+                        "filters": [
+                        {
+                            "name": "Endpoint",
+                            "facet": "serverHost"
+                        }, 
+                        {
+                            "name": "Name",
+                            "facet": "Name"
+                        }
+                ]
             },
             {
                 "tabName":"Scheduled Tasks",
