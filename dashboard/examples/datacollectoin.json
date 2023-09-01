@@ -61,7 +61,7 @@
                 }
             ]
 		},
-        {
+{
 			"tabName": "Services",
 			"graphs": [
                 {
@@ -96,7 +96,7 @@
                 }
                 ]
             },
-            {
+{
                 "tabName": "Drivers (PnP 32)",
                 "graphs": [
                 {
@@ -121,25 +121,65 @@
                 }
                 ]
     		},
-            {
-                "tabName":"File",
+{
+                "tabName":"Find-File",
                 "graphs":[
                     {
                         "graphStyle": "",
                         "query": "| join \n(rsoTaskId > '0' DirectoryName != null \n| columns serverHost, DirectoryName, FullName, Name, rsoTaskId\n),\n(rsoTaskId > '0' DirectoryName != null \n| columns rsoTaskId, serverHost\n| group rsoTaskId=newest(rsoTaskId) by serverHost\n)\non rsoTaskId, serverHost\n| columns serverHost, DirectoryName, FullName, Name, rsoTaskId\n| group NumberOfOccurences=count(serverHost) by serverHost, Name ",
                         "showBarsColumn": "false",
-                        "title": "Occurences by Endpoints"
+                        "title": "Occurences by Endpoints (from last run)",
+                        "layout": {
+                            "h": 14,
+                            "i": "0",
+                            "minH": 3,
+                            "minW": 6,
+                            "w": 29,
+                            "x": 0,
+                            "y": 0
                         }
-                        ],
-                        "filters": [
-                        {
-                            "name": "Endpoint",
-                            "facet": "serverHost"
-                        }, 
-                        {
-                            "name": "Name",
-                            "facet": "Name"
+                    },
+                    {
+                      "graphStyle": "",
+                      "query": "| join \n(rsoTaskId > '0' DirectoryName != null \n| columns serverHost, DirectoryName, FullName, Name, rsoTaskId\n),\n(rsoTaskId > '0' DirectoryName != null \n| columns rsoTaskId, serverHost\n| group rsoTaskId=newest(rsoTaskId) by serverHost\n)\non rsoTaskId, serverHost\n| columns serverHost, FullName, rsoTaskId",
+                      "showBarsColumn": "false",
+                      "title": "Occurences  (from last run)",
+                      "layout": {
+                            "h": 14,
+                            "w": 31,
+                            "x": 29,
+                            "y": 0
                         }
+                    },
+                    {
+                      "graphStyle": "",
+                      "query": "| join \n(rsoTaskId > '0' DirectoryName != null \n| columns timestamp, serverHost, DirectoryName, FullName, Name, rsoTaskId\n),\n(rsoTaskId > '0' DirectoryName != null \n| group Occurence=estimate_distinct(FullName), rsoTaskId=newest(rsoTaskId) by serverHost\n| columns rsoTaskId, serverHost\n),\n(rsoTaskId > '0' DirectoryName != null \n| group All_Occurences=count(FullName) by serverHost, rsoTaskId \n| columns rsoTaskId, serverHost, All_Occurences\n)\non serverHost, rsoTaskId \n| columns serverHost, FullName, DirectoryName, Name, All_Occurences\n| sort -All_Occurences",
+                      "showBarsColumn": "false",
+                      "title": "All Occurences by Endpoint, DirectoryName and FileName",
+                      "layout": {
+                            "h": 14,
+                            "i": "2",
+                            "minH": 3,
+                            "minW": 6,
+                            "w": 60,
+                            "x": 0,
+                            "y": 14
+                        }
+                    }
+                    ],
+                    "filters": [
+                    {
+                        "name": "Endpoint",
+                        "facet": "serverHost"
+                    }, 
+                    {
+                        "name": "DirectoryName",
+                        "facet": "DirectoryName"
+                    },
+                    {
+                        "name": "FileName",
+                        "facet": "Name"
+                    }
                 ]
             },
             {
@@ -172,8 +212,8 @@
                     "facet": "TaskPath"
                 }
             ]
-        }, 
-        {
+        },
+{
             "tabName":"Environment Variables",
             "graphs":[
             {
@@ -198,7 +238,7 @@
             }
             ]
         },
-        {
+{
             "tabName":"Applications",
             "graphs":[
             {
@@ -225,7 +265,7 @@
             }
             ]
         },
-        {
+{
             "tabName":"Network Connections",
             "graphs":[
             {
@@ -281,7 +321,6 @@
                     "facet": "RemotePort"
                 }
             ]
-        }
-    ],
+        }],
     "description": "Output from Datacollection scripts \n(shows only the data from the latest tasks run)"
 }
