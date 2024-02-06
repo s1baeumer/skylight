@@ -1,0 +1,47 @@
+{
+    "graphs": [
+        {
+            "graphStyle": "line",
+            "lineSmoothing": "straightLines",
+            "query": "activity.analyzer = 'cpu' | let timestamp = simpledateparse(cpu.time, 'yyyy-MM-dd HH:mm:ss') | columns timestamp, cpu.average, cpu.max",
+            "title": "CPU usage (please select filter for endpoint)",
+            "yScale": "linear"
+        },
+        {
+            "graphStyle": "",
+            "query": "activity.analyzer = 'cpu' | filter cpu.max > 30 | group Max=max(cpu.max) by Endpoint=endpoint.name | sort -Max | limit 20",
+            "title": "Endpoints with max  CPU > 30% (Top 20)",
+            "showBarsColumn": "false"
+        },
+        {
+            "query": "activity.analyzer = 'path' | filter activity.percent > 30 | group Max=max(activity.percent) by Endpoint=endpoint.name, App=activity.path | sort -Max",
+            "title": "Activity greater 30% ",
+            "graphStyle": "",
+            "showBarsColumn": "false"
+        },
+        {
+            "graphStyle": "",
+            "query": "activity.analyzer = 'cpu' | filter cpu.average > 2 | group MaxAverage=max(cpu.average) by Endpoint=endpoint.name  | sort -MaxAverage | limit 20",
+            "title": "Endpoints  with CPU Average > 2% (Top20)",
+            "showBarsColumn": "false"
+        },
+        {
+            "graphStyle": "",
+            "query": "activity.analyzer = 'path' | columns Endpoint=endpoint.name, activity.path, activity.percent, activity.time | sort -activity.percent ",
+            "title": "Activity by App",
+            "showBarsColumn": "false"
+        }
+    ],
+    "description": "!!! Please do not change the dashboard !!!\n If you want to add meaningful content please get in touch with the EvilTwins™ - To use the dashboard you should have sent the ActivityAnalyzer data collection script via RemoteOps to one or more agents.",
+    "options": {
+        "layout": {
+            "columns": 3
+        }
+    },
+    "filters": [
+        {
+            "facet": "endpoint.name",
+            "name": "Endpoint"
+        }
+    ]
+}
